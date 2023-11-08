@@ -211,9 +211,6 @@ class DexYCB_Temporal(data.Dataset):
         self.motions = ho3d_util.read_pkl(
             os.path.join(dataset_root, "dexycb_s0_motion_dict.pickle")
         )[self._split]
-        self.coverage_dict = ho3d_util.json_load(
-            os.path.join(train_label_root, f"{self._setup}_{self._split}_coverage.json")
-        )
 
     def get_sequence_list(self):
         cache_filepath = os.path.join(
@@ -460,9 +457,6 @@ class DexYCB_Temporal(data.Dataset):
             sample["cam_intr"].append(K)
             sample["joints2d"].append(joints_uv)
             n, q = self._sequences[s].split("/")
-            sample["coverage"].append(
-                self.coverage_dict[n][q][self._serials[c]][str(f)] * 1.0
-            )
 
         sample["img"] = torch.stack(sample["img"], dim=0)
         sample["bbox_hand"] = np.stack(sample["bbox_hand"], axis=0)
@@ -470,7 +464,6 @@ class DexYCB_Temporal(data.Dataset):
         sample["cam_intr"] = np.stack(sample["cam_intr"], axis=0)
         sample["joints2d"] = np.stack(sample["joints2d"], axis=0)
         sample["mano_side"] = np.array(sample["mano_side"])
-        sample["coverage"] = np.array(sample["coverage"])
         if self._split != "train":
             sample["root_joint"] = np.stack(sample["root_joint"], axis=0)
         rand_real_motion_id = random.randint(0, self.motions.shape[0] - 1)
