@@ -42,6 +42,11 @@ Please download the [preprocessed files](https://drive.google.com/file/d/1yDOJW1
 The downloaded files contains training list and labels generated from the [original HO3D dataset](https://cloud.tugraz.at/index.php/s/9HQF57FHEQxkdcz/download?path=%2F&files=HO3D_v2.zip). 
 Please put the unzipped folder `ho3d-process` to the current directory.
 
+Next, generate the hand motion data by running: 
+```
+python -m scripts.generate_motions --data_root=$HO3D_root
+```
+
 Launch training by running:
 ```
 python -m torch.distributed.launch --nproc_per_node 8 ddp_train.py \
@@ -85,6 +90,10 @@ First download and unzip [DexYCB dataset](https://dex-ycb.github.io/) to path yo
 
 Run `python scripts/preprocess_dexycb.py` to preprocess the dataset. The output will be saved in the `dexycb-process`, which will be used to accelerate training.
 
+Next, generate the hand motion data by running: 
+```
+python -m scripts.generate_motions --data_root=$DexYCB_root
+```
 
 Launch training by running:
 ```
