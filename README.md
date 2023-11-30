@@ -42,8 +42,9 @@ Please download the [preprocessed files](https://drive.google.com/file/d/1yDOJW1
 The downloaded files contains training list and labels generated from the [original HO3D dataset](https://cloud.tugraz.at/index.php/s/9HQF57FHEQxkdcz/download?path=%2F&files=HO3D_v2.zip). 
 Please put the unzipped folder `ho3d-process` to the current directory.
 
-Next, generate the hand motion data by running: 
+Next, generate the temporal windows and the hand motion data by running:
 ```
+python -m scripts.preprocess_ho3d
 python -m scripts.generate_motions --data_root=$HO3D_root
 ```
 
